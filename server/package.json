@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "nodemon --env-file=.env server.js"
+    "start": "nodemon --env-file=.env server.js",
+    "dev": "nodemon --env-file=.env server.js",
+    "seed": "node --env-file=.env userSeed.js"
   },
   "keywords": [],
   "author": "",
@@ -12,7 +14,7 @@
   "type": "module",
   "description": "",
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",

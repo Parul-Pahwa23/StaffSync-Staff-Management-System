@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchDepartments } from '../../utils/EmployeeHelper';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Add = () => {
   const [departments, setDepartments] = useState([]);
@@ -68,7 +68,20 @@ const Add = () => {
 
           <InputField label="Designation" name="designation" type="text" placeholder="Designation" onChange={handleChange} />
           
-          <SelectField label="Department" name="department" onChange={handleChange} options={[{ value: '', text: 'Select Department' }, ...departments.map(dep => ({ value: dep._id, text: dep.dep_name }))]} />
+          <SelectField 
+            label="Department" 
+            name="department" 
+            onChange={handleChange} 
+            options={[
+              { value: '', text: departments.length === 0 ? 'No departments available' : 'Select Department' }, 
+              ...departments.map(dep => ({ value: dep._id, text: dep.dep_name }))
+            ]} 
+            helperText={departments.length === 0 ? (
+              <span className="text-xs text-amber-600">
+                No departments found. Please <Link to="/admin-dashboard/add-department" className="text-blue-600 underline font-medium">Add Department</Link> first.
+              </span>
+            ) : null}
+          />
           
           <InputField label="Salary" name="salary" type="number" placeholder="Salary" onChange={handleChange} />
           <InputField label="Password" name="password" type="password" placeholder="********" onChange={handleChange} />
@@ -96,7 +109,7 @@ const InputField = ({ label, name, type, placeholder, onChange }) => (
   </div>
 );
 
-const SelectField = ({ label, name, onChange, options }) => (
+const SelectField = ({ label, name, onChange, options, helperText }) => (
   <div>
     <label className="block text-sm font-medium text-gray-700">{label}</label>
     <select name={name} onChange={onChange} className="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
@@ -106,6 +119,7 @@ const SelectField = ({ label, name, onChange, options }) => (
         </option>
       ))}
     </select>
+    {helperText && <div className="mt-1">{helperText}</div>}
   </div>
 );
 

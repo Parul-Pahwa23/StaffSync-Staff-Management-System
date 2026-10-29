@@ -29,6 +29,5 @@ build/
 Thumbs.db
 
 #Public uploads
-public/uploads/1742128305667.jpg
-public/uploads/1742222421839.jpg
-public/uploads/1742399878532.jpg
+public/uploads/*
+!public/uploads/1742399878532.png

@@ -1,10 +1,15 @@
 import mongoose from "mongoose";
 
 const connectToDatabase = async () => {
-  try{
-    await mongoose.connect(process.env.MONGODB_URL);
+  try {
+    if (!process.env.MONGODB_URL && typeof process.loadEnvFile === "function") {
+      try {
+        process.loadEnvFile();
+      } catch (e) {}
+    }
+    await mongoose.connect(process.env.MONGODB_URL || "mongodb://localhost:27017/staffsync");
     console.log("Connection with database successfull");
-  }catch(error){
+  } catch(error) {
     console.log(error);
   }
 }

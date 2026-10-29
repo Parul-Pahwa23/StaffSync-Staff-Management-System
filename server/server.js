@@ -10,9 +10,15 @@ import dashboardRouter from './routes/dashboard.js'
 import attendanceRouter from './routes/attendance.js'
 import connectToDatabase from "./database/db.js"
 
+if (!process.env.PORT && typeof process.loadEnvFile === "function") {
+  try {
+    process.loadEnvFile();
+  } catch (e) {}
+}
+
 connectToDatabase();
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
